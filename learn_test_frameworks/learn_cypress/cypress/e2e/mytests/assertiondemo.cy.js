@@ -8,5 +8,7 @@ it('Assertions Demo', () => {
         .should('be.visible') // In place of should you may use and.
         .should('be.enabled')
     expect(true).to.be.true
-
+    assert.equal(3,3,"They're equal")
+    assert.equal(4,'4', "Still pass although data types are different")
+    assert.strictEqual(4,'4', "Will not pass because data types are different")
 })
