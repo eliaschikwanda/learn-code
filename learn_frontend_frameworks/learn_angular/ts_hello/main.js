@@ -25,7 +25,34 @@ var Color;
     Color[Color["Green"] = 1] = "Green";
     Color[Color["Blue"] = 3] = "Blue";
 })(Color || (Color = {}));
-// The first element 'Red' automatically gets the value of zero no need to explicitly state and the following is one.
+; // The first element 'Red' automatically gets the value of zero no need to explicitly state and the following is one.
 var backgroundColor = Color.Blue;
-
-
+// This function
+var logF = function (message) {
+    console.log(message);
+};
+// can be writen as called an arrow function in TypeScript.
+var doLog = function (message) { return console.log(message); };
+// You can bundle variables together
+var drawPoint = function (point) {
+    // ....
+};
+drawPoint({
+    x: 1,
+    y: 2
+});
+// You can also use the class method
+var ClassPoint = /** @class */ (function () {
+    function ClassPoint() {
+    }
+    ClassPoint.prototype.draw = function () {
+        console.log('x ' + this.x + ' y ' + this.y);
+    };
+    ClassPoint.prototype.getDistance = function (anotherPoint) {
+    };
+    return ClassPoint;
+}());
+var pointClass = new ClassPoint(); // When defining an object of a custom type we need to explicitly allocate memory by using new.
+pointClass.x = 2;
+pointClass.y = 3;
+pointClass.draw();

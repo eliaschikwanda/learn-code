@@ -48,16 +48,43 @@ drawPoint({
 
 // You can also use the class method
 class ClassPoint {
-    x : number;
-    y: number;
+    private x : any;
+    private y: any;
+
+    // In TS you can only have one constructor in a class
+    // so the best way to only create instances without passing
+    // a value is to make the arguments optional by inserting a ?
+    constructor(x?: number, y?: number) {
+        this.x = x;
+        this.y = y;
+    }
+
+    // The code above with class definition can be constructed with condensed in the line below
+    // constructor(private x?: number, private y?: number)
+    // with the above code the TS compiler creates x and y fields and assigns the x and y values
+    // with items passed into the constructor.
 
     draw() {
-        //....
+        console.log('x: ' + this.x + ' y: ' + this.y)
     }
 
     getDistance(anotherPoint: ClassPoint) {
 
     }
+
+    getX() {
+        return this.x
+    }
+
+    getY() {
+        return this.y
+    }
 }
 
-let pointClass: ClassPoint;
+let pointClass = new ClassPoint(1, 2); // When defining an object of a custom type we need to explicitly allocate memory by using new.
+pointClass.draw();
+
+// Sometimes you don't need to edit the values of an object you have initialized it with
+// You can use an access modifier to restrict editing the document. Which is the use a keyword
+// to control accesss a member of a class from outside. In TS there are 3 access modifiers which
+// are public, private and protected.
