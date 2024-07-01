@@ -22,6 +22,8 @@ import { CoursesService } from "./courses.service";
             <li *ngFor="let course of courses"> 
                 {{course}}
             </li>
+            <br>
+            <button class = "btn btn-primary">Save</button>
         </ul>
     
     `
