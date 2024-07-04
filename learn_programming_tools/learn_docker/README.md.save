@@ -15,3 +15,4 @@
 - To start a container and interact with it, we use `docker run -it 'image-name'`.
 - A `#` sign on a ubuntu terminal means you have logged in as an admin and `$` means you don't have other priviledges.
 - The package manager for ubuntu is called `apt` which stands for `advanced package tool`.
+- `FROM` specify the base image to build from, `WORKDIR` specify the working directory
