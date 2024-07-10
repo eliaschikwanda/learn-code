@@ -11,3 +11,4 @@
 
 ### Creating components
 - You can use a javascript class or a function. Functions are preferred to classes.
+- It is advisable to put all components in a folder named `components` in the `src` directory.
