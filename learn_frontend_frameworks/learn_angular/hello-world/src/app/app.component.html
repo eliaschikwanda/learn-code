@@ -242,6 +242,10 @@
             <hr>
          </div>
       </bootstrap-panel>
+      <app-like-exercise
+      [likesCount]="tweet.likesCount"
+      [isActive]="tweet.isLiked"
+      ></app-like-exercise>
     </div>
     <div class="divider" role="separator" aria-label="Divider"></div>
     <div class="right-side">

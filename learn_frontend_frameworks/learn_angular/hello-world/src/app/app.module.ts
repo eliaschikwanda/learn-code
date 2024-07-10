@@ -10,10 +10,11 @@ import { FormsModule } from '@angular/forms';
 import { SummaryPipe } from './summary.pipe';
 import { FavoriteComponent } from './favorite/favorite.component';
 import { PanelComponent } from './panel/panel.component';
+import { LikeExerciseComponent } from './like-exercise/like-exercise.component';
 
 @NgModule({
   declarations: [
-    AppComponent, CourseComponet, CourseComponent, SummaryPipe, FavoriteComponent, PanelComponent
+    AppComponent, CourseComponet, CourseComponent, SummaryPipe, FavoriteComponent, PanelComponent, LikeExerciseComponent
   ],
   imports: [
     BrowserModule,
