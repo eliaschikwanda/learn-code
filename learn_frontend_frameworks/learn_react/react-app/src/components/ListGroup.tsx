@@ -3,19 +3,46 @@
 // The elements only return one component and you need to wrap other components.
 // We use empty anchor brackets it's a shortcut for react to a Fragment
 
-function ListGroup() {
+import { useState } from "react";
+
+// You can pass in data to components so that they become reusable.
+// You also need to define the structure of the data to be entered and you
+// use the TypeScript interface to do it. for eg { items: [], heading: string }
+interface ListGroupProps {
+  items: string[];
+  heading: string;
+}
+
+function ListGroup({ items, heading }: ListGroupProps) {
+  // const [name, setName] useState('')
+  const [selectedIndex, setSelectedIndex] = useState(-1);
+
   return (
     <>
-        <h1>List</h1>
-        <ul className=" list-group">
-          <li className="list-group-item disabled" aria-disabled="true">
-            A disabled item
+      <h1>{ heading }</h1>
+      {items.length === 0 ? <p>No items</p> : null}
+      {/* The same code above can be written equally like below */}
+      {items.length === 0 && <p>No items</p>}
+      <ul className=" list-group">
+        {/* to put JS code within JSX use sqaure brackets */}
+        {/* WHen rendering a list of objects dynamically we should use the key function so that react knows which part is being modified */}
+        {items.map((item, index) => (
+          <li
+            className={
+              selectedIndex === index
+                ? "list-group-item active "
+                : "list-group-item"
+            }
+            key={item}
+            onClick={() => {
+              setSelectedIndex(index);
+            }}
+          >
+            {" "}
+            {item}{" "}
           </li>
-          <li className="list-group-item">A second item</li>
-          <li className="list-group-item">A third item</li>
-          <li className="list-group-item">A fourth item</li>
-          <li className="list-group-item">And a fifth one</li>
-        </ul>
+        ))}
+      </ul>
     </>
   );
 }
