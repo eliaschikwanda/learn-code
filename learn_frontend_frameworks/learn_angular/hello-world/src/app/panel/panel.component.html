@@ -1,5 +1,12 @@
 <div class="panel panel-default">
-    <div class="panel-heading"></div>
-    <div class="panel-body"></div>
+    <div class="panel-heading">
+        <ng-content select = ".heading"></ng-content>
+        <!-- The selected componet in case a component with a class header
+         will replace the ng-content -->
+    </div>
+    <div class="panel-body">
+        <ng-content select = ".body"></ng-content>
+    </div>
+
 </div>
 <p>panel works!</p>

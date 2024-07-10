@@ -227,9 +227,21 @@
       </svg>
       <h1>Hello, {{ title }}</h1>
       <p>Congratulations! Your app is running. 🎉</p>
-      <p>Bro trying new things.</p>
-      <favorite [isFavorite] = "post.isFavorite"></favorite>
-      <courses></courses>
+      <!-- <p>Bro trying new things.</p> -->
+      <!-- <favorite [isFavorite] = "post.isFavorite"></favorite>
+      <courses></courses> -->
+      <bootstrap-panel>
+        <!-- Inside the boostrap panel we can add the ngContent that will be replaced in the template with the selectore bootstrap-panel -->
+         <div class="heading">
+            This is the heading in the app component being injected by the ngContent.
+            <hr>
+            <!-- To just render the content use ng-container and put the content between angle brackets. -->
+         </div>
+         <div class="body">
+            This is the body in the app componet being injected injected by the ngContent.
+            <hr>
+         </div>
+      </bootstrap-panel>
     </div>
     <div class="divider" role="separator" aria-label="Divider"></div>
     <div class="right-side">
