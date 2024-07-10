@@ -1,9 +1,18 @@
 import { Component, Input, OnInit } from '@angular/core';
 
+// Angular will pick the style definition of the one that comes last
+
 @Component({
   selector: 'favorite',
   templateUrl: './favorite.component.html',
-  styleUrl: './favorite.component.css'
+  styleUrl: './favorite.component.css',
+  styles: [
+    `
+    .glyphicon {
+      color: green;
+    }
+    `
+  ]
 })
 
 // The @Input property is used to mark fields as input properties

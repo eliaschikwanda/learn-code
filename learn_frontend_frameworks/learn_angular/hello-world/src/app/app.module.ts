@@ -9,10 +9,11 @@ import { CoursesService } from './courses.service';
 import { FormsModule } from '@angular/forms';
 import { SummaryPipe } from './summary.pipe';
 import { FavoriteComponent } from './favorite/favorite.component';
+import { PanelComponent } from './panel/panel.component';
 
 @NgModule({
   declarations: [
-    AppComponent, CourseComponet, CourseComponent, SummaryPipe, FavoriteComponent
+    AppComponent, CourseComponet, CourseComponent, SummaryPipe, FavoriteComponent, PanelComponent
   ],
   imports: [
     BrowserModule,
