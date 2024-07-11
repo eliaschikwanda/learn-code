@@ -1,0 +1,62 @@
+<!-- Directives -->
+<!-- There are two types of directibes -->
+
+<!-- \
+1. Structural - Modifies the structure of the DOM 
+    Whenever using the structural directive you prefix with an *
+-->
+
+<!-- 
+2. Attribute - Modify the attributes of the DOM  
+    
+-->
+
+ <!-- ngIf - used to display some part of the page based on a certain condition
+  in this case if cases are available-->
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">  
+
+  <div *ngIf="courses.length > 0">
+    List of course
+  </div>
+
+  <div *ngIf="courses.length == 0">
+    No courses yet.
+  </div>
+
+<!-- You can achieve the same using the *ngIf else like below and adding the ng-template and give it an identifier using # -->
+<hr>
+
+<div *ngIf="courses.length > 0; else noCourses">
+    List of courese using the else statement
+</div>
+
+<ng-template #noCourses>
+    No courses
+</ng-template>
+
+<!-- ngSwitchCase -->
+<!-- ngIf works only if you can a true or false statement but if you have multiple statements ngSwitchCase maybe ideal -->
+
+<ul class="nav nav-pills">
+    <!-- Class Binding give it a class if a certain condition is true -->
+    <li [class.active] = "viewMode == 'map'"><a (click)="viewMode = 'map'">Map View</a></li> 
+    <li [class.active] = "viewMode == 'list'"><a (click)="viewMode = 'list'">List View</a></li>
+<!-- Bind the switch case to a variable and use ngSwitchCase with a lot of cases -->
+</ul>
+<br>
+<div [ngSwitch]="viewMode">
+    <div *ngSwitchCase="'map'">Map View Content</div>
+    <div *ngSwitchCase="'list'">List View Content</div>
+    <div *ngSwitchDefault>Otherwises</div>
+</div>
+
+<!-- ngFor -->
+<!-- Used for iterating through an iterable -->
+
+<ul>
+    <!-- The index is also exported with the ngFor and can be put in a local variable -->
+    <li *ngFor="let course of courses; index as i">
+        {{i}} - {{ course.name }}
+    </li>
+</ul>
