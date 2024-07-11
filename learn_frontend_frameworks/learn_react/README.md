@@ -16,3 +16,4 @@
   `useState`. This function is called a Hook which is used to tap into built in features of react.
 - `useState` takes an initial argument as the variable that is changings and returns an array `arr` where
    `arr[0]` is the variable that is changing and `arr[1]` is the updator function.
+- 
