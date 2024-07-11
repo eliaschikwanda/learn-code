@@ -2,6 +2,5 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../learn_programming_tools/learn_docker/Supplementary Files/Section 4- Images/section4-react-app/section4-react-app" vcs="Git" />
   </component>
 </project>
