@@ -17,3 +17,16 @@
 - `useState` takes an initial argument as the variable that is changings and returns an array `arr` where
    `arr[0]` is the variable that is changing and `arr[1]` is the updator function.
 - For icons you can use a react library. You can instal it using `npm i react-icons@"version"`
+
+## Managing Component State
+### State Hook
+- React updates state asynchronously (meaning not immediately).
+- State is stored outside of a component. React keeps the state as long as the componet shows
+  on the screen.
+- You can only use at the top level of a component.
+- We cannot use inside the `for` loops and `if` statements because it the constructs impact the order in which the
+  state hook is called.
+
+### Keeping components Pure.
+- A pure function is a function such that given the same input it produces the same result.
+- To keep components pure, keep changes out of the render phase.
