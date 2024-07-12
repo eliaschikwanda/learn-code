@@ -5,6 +5,8 @@ import { BsCalendarFill } from "react-icons/bs";
 import { useState } from "react";
 import { NavBar } from "./components/NavBar";
 import { Cart } from "./components/Cart";
+import { Form } from "./components/Form";
+import "./index.css"
 
 function App() {
   let items = ["Tokyo", "Japan", "San Jose", "New York"];
@@ -34,6 +36,11 @@ function App() {
 
     <NavBar cartItemsCount={cartItems.length}></NavBar>
     <Cart cartItems={cartItems} onClear={() => setCartItems([])}></Cart>
+
+    {/* Building Forms Code */}
+
+    <Form></Form>
+    
   </div>
 }
 

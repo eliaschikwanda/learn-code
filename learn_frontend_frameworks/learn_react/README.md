@@ -30,3 +30,10 @@
 ### Keeping components Pure.
 - A pure function is a function such that given the same input it produces the same result.
 - To keep components pure, keep changes out of the render phase.
+
+### Updating logic with Immer.
+- To install immer use `npm i immer@"version"`.
+- The component that hold the state is the responsible for updating it.
+
+### Building Forms
+- You can write global styles in `index.css`.
