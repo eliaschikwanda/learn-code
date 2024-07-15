@@ -12,7 +12,7 @@ import categories from "./expense-tracker/categories";
 import "./index.css";
 import ExpenseForm from "./expense-tracker/components/ExpenseForm";
 import { ProductList } from "./components/ProductList";
-
+import axios from "axios";
 
 function App() {
   // let items = ["Tokyo", "Japan", "San Jose", "New York"];
@@ -46,25 +46,53 @@ function App() {
   // const visibleExpense = selectCategory
   //   ? expense.filter((e) => e.category == selectCategory)
   //   : expense;
-    
+
   // The function passed in useEffect will be called after render.
 
-  const [category, setCategory] = useState("")
+  // const [category, setCategory] = useState("")
+
+  // Effect Hook cleaning
+  // const connect = () => {
+  //   console.log('Connecting')
+  // };
+
+  // const disconnet = () => {
+  //   console.log('Disconnecting')
+  // };
+
+  // useEffect(() => {
+  //   connect();
+
+  //   return disconnet();
+  // })
+
+  interface User {
+    id: number;
+    name: string;
+  }
+
+  const [users, setUsers] = useState<User[]>([]);
 
   useEffect(() => {
-    document.title = 'My App';
-  })
+    axios.get<User[]>("https://jsonplaceholder.typicode.com/users")
+    .then((response) => {setUsers(response.data)});
+  }, []);
 
   return (
     <>
-    <div>
+      <div>
+        <ul>
+          { users.map((user) => <li key={user.id}>{user.name}</li>) }
+        </ul>
+      </div>
+      {/* <div>
       <select className="form-select" onChange={(event) => {setCategory(event.target.value)}}>
         <option value=""></option>  
         <option value="Clothing">Clothing</option>
         <option value="Household">Household</option>
       </select>
       <ProductList category={category}></ProductList>
-    </div>
+    </div> */}
       {/* We're passing two parameters items and heading in a ListGroup Component */}
       {/* <ListGroup items={items} heading="Cities" onSelectItem={ handleSelectItem }></ListGroup>
     <Alert>

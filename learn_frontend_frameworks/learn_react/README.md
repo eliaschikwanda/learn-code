@@ -47,4 +47,13 @@
 - React components should be pure functions (should return the same results if given the same inputs"
 - To keep components pure, keep changes out of the render phase.
 - We can use the effect hook `useEffect( () => {} )` to execute a piece of code after a component is rendered.
+- The arrow function passed in the effect hook will be called after rendering.
+- When we have multiple effects React will apply them in order after each render
+- You can also have more control when the function executes.
+- To avoid going into an infinity loop when using the effect hook. You may pass in the array of dependencies as a second argument to
+  ensure that the arrow function passed in the effect is executed once. It will execute again when the dependencies in the array changes.
 
+- Sending HTTP REQUESTS can be done using `fetch()` or a library called axios, to install axios you can use `npm i axios@1.3.4`
+- The effect hook can be used to call the server. Because calling the server doesn't happen immediately calling `axios.get("target-endpoint")` returns a promise.
+- A promise is an object that holds the eventual result or failure of an asynchronous operation. All promises has a method called `then()` where a callback function
+is passed, the function that  will be executed when the promise is resolved.
