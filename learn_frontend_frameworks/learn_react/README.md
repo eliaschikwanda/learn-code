@@ -42,3 +42,9 @@
    `rm -rf node_modules package-lock.json`
    `npm install` 
    `npm start`
+
+### Connecting to the Backend
+- React components should be pure functions (should return the same results if given the same inputs"
+- To keep components pure, keep changes out of the render phase.
+- We can use the effect hook `useEffect( () => {} )` to execute a piece of code after a component is rendered.
+
