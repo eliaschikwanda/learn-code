@@ -1,3 +1,4 @@
+
 # We gonna be learning React
 - React is a JS library not a framework and I will be using this README to document my progress.
 - I am using the codewithmosh react course to kick start my learning of react.
@@ -37,3 +38,7 @@
 
 ### Building Forms
 - You can write global styles in `index.css`.
+- When starting a project on a computer that has run it before and the other computer added dependencies use the following commands
+   `rm -rf node_modules package-lock.json`
+   `npm install` 
+   `npm start`
