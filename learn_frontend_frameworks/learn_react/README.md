@@ -56,4 +56,8 @@
 - Sending HTTP REQUESTS can be done using `fetch()` or a library called axios, to install axios you can use `npm i axios@1.3.4`
 - The effect hook can be used to call the server. Because calling the server doesn't happen immediately calling `axios.get("target-endpoint")` returns a promise.
 - A promise is an object that holds the eventual result or failure of an asynchronous operation. All promises has a method called `then()` where a callback function
-is passed, the function that  will be executed when the promise is resolved.
+is passed (that takes a response object), the function that  will be executed when the promise is resolved.
+
+### Handling Errors
+- While calling the server many things can go wrong. `axios` have a method called `catch()` that can be used to catch errors.
+- You pass in a call back function (that takes an error function) in a `catch()` method when something goes wrong.

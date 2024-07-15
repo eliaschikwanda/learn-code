@@ -72,10 +72,12 @@ function App() {
   }
 
   const [users, setUsers] = useState<User[]>([]);
+  const [error, setError] = useState<string>('');
 
   useEffect(() => {
-    axios.get<User[]>("https://jsonplaceholder.typicode.com/users")
-    .then((response) => {setUsers(response.data)});
+    axios.get<User[]>("https://jsonplaceholder.typicode.com/userss")
+    .then((response) => {setUsers(response.data)})
+    .catch((error) => {setError(error.message)});
   }, []);
 
   return (
@@ -83,6 +85,7 @@ function App() {
       <div>
         <ul>
           { users.map((user) => <li key={user.id}>{user.name}</li>) }
+         { error && <p className="text-danger">{error}</p>}
         </ul>
       </div>
       {/* <div>
