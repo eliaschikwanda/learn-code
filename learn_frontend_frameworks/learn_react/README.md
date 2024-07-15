@@ -61,3 +61,12 @@ is passed (that takes a response object), the function that  will be executed wh
 ### Handling Errors
 - While calling the server many things can go wrong. `axios` have a method called `catch()` that can be used to catch errors.
 - You pass in a call back function (that takes an error function) in a `catch()` method when something goes wrong.
+- Calling the server is asynchronous, which means it's non-blocking.
+- All promises has a finally method, and you can pass in a call back function, that is called resolved whether our promised is resolved or rejected.
+
+
+### Deleting a user
+- When deleting data we can do an `optimistic update`: 1. Update the UI then Call the server to make changes.
+- We can also use a `pessimistic update`, used when there is a chance the deletion will fail, 1. Call the server then Update the UI.
+- To make the UI faster you may wanna use the `optimistic update`.
+

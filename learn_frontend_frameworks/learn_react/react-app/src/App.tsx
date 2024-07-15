@@ -12,7 +12,7 @@ import categories from "./expense-tracker/categories";
 import "./index.css";
 import ExpenseForm from "./expense-tracker/components/ExpenseForm";
 import { ProductList } from "./components/ProductList";
-import axios from "axios";
+import axios, { AxiosError, CanceledError } from "axios";
 
 function App() {
   // let items = ["Tokyo", "Japan", "San Jose", "New York"];
@@ -72,20 +72,70 @@ function App() {
   }
 
   const [users, setUsers] = useState<User[]>([]);
-  const [error, setError] = useState<string>('');
+  const [error, setError] = useState<string>("");
+  const [isLoading, setLoading] = useState<boolean>(false);
 
+  // The code below can be rewritten using the await sync function after this code snippet
   useEffect(() => {
-    axios.get<User[]>("https://jsonplaceholder.typicode.com/userss")
-    .then((response) => {setUsers(response.data)})
-    .catch((error) => {setError(error.message)});
+    // Object below
+    const controller = new AbortController(); // a cleaner function to cancel the call when no longer needed.
+    setLoading(true);
+
+    axios
+      .get<User[]>("https://jsonplaceholder.typicode.com/users", {
+        signal: controller.signal,
+      })
+      .then((response) => {
+        setUsers(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        if (error instanceof CanceledError) return;
+        setError(error.message);
+        setLoading(false);
+      });
+
+    return () => {
+      controller.abort();
+    };
   }, []);
+
+  const deleteUser = (user: User) => {
+    const originalUsers = [...users];
+    setUsers(users.filter(u => u.id !== user.id));
+
+    axios.delete('https://jsonplaceholder.typicode.com/users/id')
+    .catch(err => {
+      setError(err.message);
+      setUsers(originalUsers)
+    })
+  }
+
+  // useEffect(() => {
+  //   const fetchUsers = async () => {
+  //     try {
+  //       const response = await axios.get<User[]>("https://jsonplaceholder.typicode.com/users");
+  //       setUsers(response.data)
+  //     } catch (error) {
+  //       setError((error as AxiosError).message)
+  //     }
+  //   }
+
+  //   fetchUsers();
+  // }, []);
 
   return (
     <>
       <div>
-        <ul>
-          { users.map((user) => <li key={user.id}>{user.name}</li>) }
-         { error && <p className="text-danger">{error}</p>}
+        {error && <p className="text-danger">{error}</p>}
+        {isLoading && <div className="spinner-border"></div>}
+        <ul className="list-group">
+          {users.map((user) => (
+            <li key={user.id} className="list-group-item d-flex justify-content-between">
+              {user.name}{" "}
+              <button className="btn btn-outline-danger" onClick={() => {deleteUser(user)}}>Delete</button>
+            </li>
+          ))}
         </ul>
       </div>
       {/* <div>
