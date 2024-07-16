@@ -77,7 +77,7 @@ function App() {
     // a cleaner function to cancel the call when no longer needed.
     setLoading(true);
 
-    const { request, cancel } = userService.getAllUser();
+    const { request, cancel } = userService.getAll<User>();
     request
       .then((response) => {
         setUsers(response.data);
@@ -98,7 +98,7 @@ function App() {
     const originalUsers = [...users];
     setUsers(users.filter((u) => u.id !== user.id));
 
-    userService.deleteUser(user.id).catch((err) => {
+    userService.delete(user.id).catch((err) => {
       setError(err.message);
       setUsers(originalUsers);
     });
@@ -123,7 +123,7 @@ function App() {
     setUsers([newUser, ...users]);
 
     userService
-      .addUser(newUser)
+      .create(newUser)
       .then((response) => {
         setUsers([response.data, ...users]);
       })
