@@ -124,16 +124,46 @@ function App() {
   //   fetchUsers();
   // }, []);
 
+  const addUser = () => {
+    const originalUser = [...users];
+    const newUser = {id: 0, name: 'Elias'};
+    setUsers([newUser, ...users]);
+
+    axios.post('https://jsonplaceholder.typicode.com/users', newUser)
+    .then((response) => {setUsers([response.data, ...users])})
+    .catch((error) => {
+      setError(error.message);
+      setUsers(originalUser);
+    });
+  }
+
+  const updateUser = (user: User) => {
+    const originalUsers = [...users];
+    const updatedUser = {...user, name: user.name + '!'};
+    setUsers(users.map(u => u.id === user.id ? updatedUser : u));
+
+    // axios.put may also be used.
+    axios.patch('https://jsonplaceholder.typicode.com/users/' + user.id, updateUser)
+    .catch((error) => {
+      setError(error.message);
+      setUsers(originalUsers);
+    })
+  }
+
   return (
     <>
       <div>
         {error && <p className="text-danger">{error}</p>}
         {isLoading && <div className="spinner-border"></div>}
+        <button className="btn btn-primary mb-3" onClick={addUser}>Add</button>
         <ul className="list-group">
           {users.map((user) => (
             <li key={user.id} className="list-group-item d-flex justify-content-between">
               {user.name}{" "}
-              <button className="btn btn-outline-danger" onClick={() => {deleteUser(user)}}>Delete</button>
+              <div>
+              <button className="btn btn-outline-danger mx-1" onClick={() => {deleteUser(user)}}>Delete</button>
+              <button className="btn btn-outline-secondary" onClick={() => {updateUser(user)}}>Update</button>
+              </div>
             </li>
           ))}
         </ul>
