@@ -32,3 +32,16 @@
 - A CSS file that is scoped to a component/page.
 - In Next.js in the project directory there is a file named postcss.config.js that is used to autogenerate CSS classes so that the classNames in the CSS modules
   do not clash.
+
+### Routing and Navigation in Next.js
+- Next,js has special files like the ones below
+- `page.tsx`
+- `layout.tsx` - defining a common layout for our pages
+- `loading.tsx` - for showing loading UIs.
+- `route.tsx` - for creating APIs.
+- `not-found.tsx` - for showing custom errors
+- `error.tsx` - for showing custom error pages. 
+- To pass in parameter you create a file with square brackets for example `user/[id]` will allow urls and passing the id. Also define the props to get the
+  paramameters passed in the URL.
+- To get variable parameters use `...` for expample `/products/[...slug]`, this will accept at least one argument after the `/products` to make the arguments
+  optional use double sqaure brackets like `/products/[[...slug]]`. When creating the paramets it comes as an array of strings.
