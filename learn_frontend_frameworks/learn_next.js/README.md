@@ -27,3 +27,8 @@
 - Next.js comes with a built in data cache. Whenever we use the `fetch()` function to get some data from the server Next.js stores in that cache memory.
 - You can also supply a 2nd parameter to the `fetch()` to control how often you want Next.js to get data from the server or to disable caching. This behaviour
   can only be implemented inside the fetch method third party libries like axios you can't
+
+### Styling
+- A CSS file that is scoped to a component/page.
+- In Next.js in the project directory there is a file named postcss.config.js that is used to autogenerate CSS classes so that the classNames in the CSS modules
+  do not clash.
