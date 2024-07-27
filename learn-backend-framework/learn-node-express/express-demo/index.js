@@ -1,8 +1,20 @@
 const Joi = require('joi'); // A class is returned
 const express = require('express');
+const logger = require('./logger');
 const app = express();
 
 app.use(express.json());
+
+// Creating a custom middleware function.
+// The next variable is the reference of the next middleware function.
+app.use(logger);
+
+// Middleware functions can be used to authenticate
+// Middleware functions are called in sequence.
+app.use((req, res, next) => {
+    console.log('Authenticating... ');
+   next(); // Pass control to the next middleware function.
+})
 
 const courses = [
     {id: 1, name: 'course1'},
