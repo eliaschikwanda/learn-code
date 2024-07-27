@@ -31,3 +31,8 @@ Install a package `npm i <packageName>`
 Install a specific version of a package: `npm i <packageName>@<version>`
 Install a package as a development dependency: `npm i <packageName> —save-dev`
 Uninstall a package: `npm un <packageName>`
+
+### Building RESTFUL APIs
+- To avoid refreshing the terminal when you make changes to termninal you can install a node package calle nodemon.
+- Use `npm i -g nodemon`
+- Instead of running an application using node for example `node index.js`, you use `nodemon index.js`
