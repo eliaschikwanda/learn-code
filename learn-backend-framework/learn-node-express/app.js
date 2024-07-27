@@ -1,33 +1,18 @@
-// const logger = require('./logger') // The require function returns the exports object which you can get through `console.log(module)
-// logger.log('Hello World')
-// console.log(logger)
+const http = require('node:http');
 
-const path = require('node:path');
-var pathObj = path.parse(__filename);
-// console.log(pathObj);
+// This server has the capabilities of the event emitter
 
-const os = require('node:os');
-const totalMemory = os.totalmem();
-const freeMemory = os.freemem();
+const server = http.createServer((req, res) => {
+    if (req.url === '/') {
+        res.write('Hello world');
+        res.end();
+    }
 
-// console.log(`Total memory: ${totalMemory}`);
-// console.log(`Free memory: ${freeMemory}`);
+    if (req.url === '/api/courses') {
+        res.write(JSON.stringify([1, 2, 3]));
+        res.end();
+    }
+});
+server.listen(3000);
 
-const fs = require('node:fs');
-const files = fs.readdirSync('./');
-// console.log(files)
-
-fs.readdir('./', (err, res) => {
-    if (err) console.log(`Error: ${err}`);
-    else console.log(res);
-})
-
-const Logger = require('./logger');
-const logger = new Logger();
-
-// A listener will be called when the event is emitted.
-logger.on('messageLogged',     (args) => {
-    console.log('Listener called', args);
-}) // Takes two parameters the name of the event and the call back function.
-
-logger.log('message');
+console.log('Listening on port 3000....');
