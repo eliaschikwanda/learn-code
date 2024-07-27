@@ -23,17 +23,15 @@ app.get('/api/courses', (req, res) => {
 app.get('/api/courses/:id', (req, res) => {
     // To read the passed parameter we use req.params.{passed-param-name}
     const course = courses.find( c => c.id === parseInt(req.params.id));
-    if (!course) res.status(404).send('The course with the given ID was not found');
+    if (!course) return  res.status(404).send('The course with the given ID was not found');
     res.send(course);
 });
 
 // HTTP post request
 app.post('/api/courses', (req, res) => {
     const {error} = validateCourse(req.body);
-    if (error) {
-        res.status(400).send(error.details[0].message);
-        return;
-    } 
+    if (error) return res.status(400).send(error.details[0].message);
+
     const course = {
         id: courses.length + 1,
         name: req.body.name, // Enable the passing of jason object to use this feature
@@ -47,27 +45,37 @@ app.put('/api/courses/:id', (req, res) => {
     // Look up the course
     // if not existing return 404
     const course = courses.find( c => c.id === parseInt(req.params.id));
-    if (!course) res.status(404).send('The course with the given ID was not found');
+    if (!course) return res.status(404).send('The course with the given ID was not found');
 
     // validate
     // If invalid, return 400 -Bad request
     const {error} = validateCourse(req.body);
     
-    if (error) {
-        res.status(400).send(error.details[0].message);
-        return;
-    }
+    if (error) return res.status(400).send(error.details[0].message);
     // Update the course
     // Return the updated courses.
     course.name = req.body.name;
     res.send(course);
 });
 
+// HTTP delete request
+app.delete('/api/courses/:id', (req, res) => {
+    // Look up the course
+    // No existing return 404
+    const course = courses.find(c => c.id === parseInt(req.params.id));
+    if (!course) return res.status(404).send('The course with the given ID was not found');
+
+    const index = courses.indexOf(course);
+    courses.splice(index, 1);
+
+    res.send(course);
+});
+
 function validateCourse(course) {
-    const schema = {
+    const schema = Joi.object({
         name: Joi.string().min(3).required(),
-    };
-    return Joi.validate(course, schema);
+    });
+    return schema.validate(course);
 }
 
 const port = process.env.PORT || 3000;
