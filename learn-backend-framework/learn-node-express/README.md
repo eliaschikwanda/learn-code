@@ -42,4 +42,8 @@ Uninstall a package: `npm un <packageName>`
 - Recommended third party middleware is `helmet` and `morgan`. These middleware slows down your application so you may want not to use the middleware in production.
 - The most popular package for making configurations is called `npm rc` or `npm config`.cd
 - Sometimes we may want to return HTML markup to the client and we use the templating engine to do so. They're so many templating engines that can be used but the prefered one is `pug`. Pug has a cleaner syntax than the actual html.
-- 
+
+
+### Asynchronous JavaScript
+- There are three patterns to deal with synchronous code 1. Callback 2. Promises 3. Async/Await
+- Callback is the function that will be called when the result of the async operation is ready.
