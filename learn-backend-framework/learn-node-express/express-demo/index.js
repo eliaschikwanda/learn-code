@@ -1,10 +1,18 @@
+const startAppDebugger = require('debug')('app:startup');
+const dbDebugger = require('debug')('app:db');
 const Joi = require('joi'); // A class is returned
 const express = require('express');
-const logger = require('./logger');
+const logger = require('./middleware/logger');
 const config = require('config');
-const morgan = require('morgan')
+const courses = require('./routes/courses');
+const home = require('./routes/home');
+const morgan = require('morgan');
 const helmet = require('helmet');
 const app = express();
+
+// Templating engine --> We don't require it but load it using the set fntion.
+app.set('view engine', 'pug');
+app.set('views', './views'); // default
 
 app.use(express.json()); // req.body --> Built-in middle function
 
@@ -12,13 +20,17 @@ app.use(express.json()); // req.body --> Built-in middle function
 // The next variable is the reference of the next middleware function.
 app.use(logger);
 app.use(helmet());
+app.use('/api/courses', courses); // For any path that starts with `/api/courses` use the courses router.
+app.use('/', home); // For any path request that starts with `/` use home router
 
 // Only enabling a middleware in dev mode
 if (app.get('env') === 'development') {
-    app.use(morgan('tiny'))
-    console.log('Enabled Morgan ... ')
+    app.use(morgan('tiny'));
+    startAppDebugger('Enabled Morgan ... ');
 }
 
+// Db work
+dbDebugger('Connected to the database...');
 
 // Middleware functions can be used to authenticate
 // Middleware functions are called in sequence.
@@ -27,72 +39,9 @@ app.use((req, res, next) => {
    next(); // Pass control to the next middleware function.
 })
 
-const courses = [
-    {id: 1, name: 'course1'},
-    {id: 2, name: 'course2'},
-    {id: 3, name: 'course3'},
-]
 
 
-app.get('/', (req, res) => {
-    res.send('Hello World');    
-}); // Use to handle http get request.
 
-app.get('/api/courses', (req, res) => {
-    res.send(courses);
-});
-
-// HTTP get request
-app.get('/api/courses/:id', (req, res) => {
-    // To read the passed parameter we use req.params.{passed-param-name}
-    const course = courses.find( c => c.id === parseInt(req.params.id));
-    if (!course) return  res.status(404).send('The course with the given ID was not found');
-    res.send(course);
-});
-
-// HTTP post request
-app.post('/api/courses', (req, res) => {
-    const {error} = validateCourse(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
-
-    const course = {
-        id: courses.length + 1,
-        name: req.body.name, // Enable the passing of jason object to use this feature
-    }
-    courses.push(course);
-    res.send(course);
-});
-
-// HTTP put request
-app.put('/api/courses/:id', (req, res) => {
-    // Look up the course
-    // if not existing return 404
-    const course = courses.find( c => c.id === parseInt(req.params.id));
-    if (!course) return res.status(404).send('The course with the given ID was not found');
-
-    // validate
-    // If invalid, return 400 -Bad request
-    const {error} = validateCourse(req.body);
-    
-    if (error) return res.status(400).send(error.details[0].message);
-    // Update the course
-    // Return the updated courses.
-    course.name = req.body.name;
-    res.send(course);
-});
-
-// HTTP delete request
-app.delete('/api/courses/:id', (req, res) => {
-    // Look up the course
-    // No existing return 404
-    const course = courses.find(c => c.id === parseInt(req.params.id));
-    if (!course) return res.status(404).send('The course with the given ID was not found');
-
-    const index = courses.indexOf(course);
-    courses.splice(index, 1);
-
-    res.send(course);
-});
 
 function validateCourse(course) {
     const schema = Joi.object({
@@ -108,9 +57,9 @@ const port = process.env.PORT || 3000;
 //console.log(`NODE_ENV: ${process.env.NODE_ENV}`) // If not set it will be undefined.
 
 // Configuration.
-console.log('Application Name: ' + config.get('name'));
-console.log('Mail Server: ' + config.get('mail.host'));
-console.log('Pasword: ' + config.get('mail.password'));
+// console.log('Application Name: ' + config.get('name'));
+// console.log('Mail Server: ' + config.get('mail.host'));
+// console.log('Pasword: ' + config.get('mail.password'));
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}...`)
