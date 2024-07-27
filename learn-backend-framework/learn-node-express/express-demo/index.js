@@ -1,13 +1,24 @@
 const Joi = require('joi'); // A class is returned
 const express = require('express');
 const logger = require('./logger');
+const config = require('config');
+const morgan = require('morgan')
+const helmet = require('helmet');
 const app = express();
 
-app.use(express.json());
+app.use(express.json()); // req.body --> Built-in middle function
 
 // Creating a custom middleware function.
 // The next variable is the reference of the next middleware function.
 app.use(logger);
+app.use(helmet());
+
+// Only enabling a middleware in dev mode
+if (app.get('env') === 'development') {
+    app.use(morgan('tiny'))
+    console.log('Enabled Morgan ... ')
+}
+
 
 // Middleware functions can be used to authenticate
 // Middleware functions are called in sequence.
@@ -90,7 +101,16 @@ function validateCourse(course) {
     return schema.validate(course);
 }
 
+// You can set the port using `export PORT={PORTNUM}`
 const port = process.env.PORT || 3000;
+
+// Configuration environments
+//console.log(`NODE_ENV: ${process.env.NODE_ENV}`) // If not set it will be undefined.
+
+// Configuration.
+console.log('Application Name: ' + config.get('name'));
+console.log('Mail Server: ' + config.get('mail.host'));
+console.log('Pasword: ' + config.get('mail.password'));
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}...`)

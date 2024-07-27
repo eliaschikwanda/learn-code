@@ -36,4 +36,8 @@ Uninstall a package: `npm un <packageName>`
 - To avoid refreshing the terminal when you make changes to termninal you can install a node package calle nodemon.
 - Use `npm i -g nodemon`
 - Instead of running an application using node for example `node index.js`, you use `nodemon index.js`
-- Joi package can be used to validate date send using POST. 
+- Joi package can be used to validate date send using POST.
+
+### Express Advanced Topics
+- Recommended third party middleware is `helmet` and `morgan`. These middleware slows down your application so you may want not to use the middleware in production.
+- The most popular package for making configurations is called `npm rc` or `npm config`.
