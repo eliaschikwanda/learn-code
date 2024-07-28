@@ -26,8 +26,29 @@ async function createCourse() {
 }
 
 async function getCourses() {
+    // Comparison Operators
+    // eq (equal)
+    // nq (not equal)
+    // gt (greater than)
+    // gte (greater than or equal to)
+    // lt (less)
+    // lte (less than or equal)
+    // in
+    // nin (not in)
     // Using the course class to query documents
     const course = await Course
+        // .find({price: { $gt: 10, $lt: 20 }}) --> Courses with prices between 10 and 20
+        // .find({prices: { $in: [10, 15, 20]}}) --> Courses with prices that either 10, 15, or 20
+
+        // With logical operators we use or, and
+        // .find() --> When using and / or leave the find empty.
+        // .or([{}, {}]) --> Array of filters
+        // .and([{}, {}]) --> Array of filter objects
+
+        // You can use regular expression to filter courses and have more control with strings
+        // .find({author: /^Mosh/}) --> The regular expression that represents starts with mosh.
+        // .find(author: /Williams$/) --> The $ makes the query that ends with a $.
+        // .find({ author: /.*Mosh.*/i}) --> Contains the word Mosh. The i makes it case insensetive
         .find({author: 'Mosh', isPublished: true})
         .limit(10)
         .sort({name: 1}) // 1 is ascending and -1 is descending
