@@ -47,3 +47,4 @@ Uninstall a package: `npm un <packageName>`
 ### Asynchronous JavaScript
 - There are three patterns to deal with synchronous code 1. Callback 2. Promises 3. Async/Await
 - Callback is the function that will be called when the result of the async operation is ready.
+- A promise holds the eventual result of an asynchronous operation. It can either result in a value or an error.
