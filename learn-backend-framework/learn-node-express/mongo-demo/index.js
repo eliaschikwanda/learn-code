@@ -36,6 +36,11 @@ async function getCourses() {
     // in
     // nin (not in)
     // Using the course class to query documents
+
+    // /api/courses/?pageNumber=2&pageSize=10
+    const pageNumber = 2;
+    const pageSize = 10;
+
     const course = await Course
         // .find({price: { $gt: 10, $lt: 20 }}) --> Courses with prices between 10 and 20
         // .find({prices: { $in: [10, 15, 20]}}) --> Courses with prices that either 10, 15, or 20
@@ -50,7 +55,9 @@ async function getCourses() {
         // .find(author: /Williams$/) --> The $ makes the query that ends with a $.
         // .find({ author: /.*Mosh.*/i}) --> Contains the word Mosh. The i makes it case insensetive
         .find({author: 'Mosh', isPublished: true})
-        .limit(10)
+        // Inorder to implement pagination we need to skip all the documents in the previous page
+        .skip((pageNumber - 1) * pageSize)
+        .limit(pageSize)
         .sort({name: 1}) // 1 is ascending and -1 is descending
         .select({name: 1, tags: 1})
     console.log(course);
