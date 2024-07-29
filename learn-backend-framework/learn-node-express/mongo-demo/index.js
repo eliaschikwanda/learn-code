@@ -77,6 +77,8 @@ async function updateCourse(id) {
 
     const result = await course.save();
     console.log(result);
+
+    
     // OR
     // course.set({
     //     isPublished: true
