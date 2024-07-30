@@ -1,5 +1,7 @@
 package com.jphanos.firstjobapp.job;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,12 +29,12 @@ public class JobController {
     }
 
     @GetMapping("/jobs/{id}")
-    public Job getJobById(@PathVariable Long id) {
+    public ResponseEntity<Job> getJobById(@PathVariable Long id) {
         Job job = jobService.getJobByID(id);
         if (job == null) {
-            return new Job(1L, "Test Job", "Test Job", "Test Job", "Test Job", "Test Job");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return job;
+        return new ResponseEntity<>(job, HttpStatus.OK);
     }
 }
 
