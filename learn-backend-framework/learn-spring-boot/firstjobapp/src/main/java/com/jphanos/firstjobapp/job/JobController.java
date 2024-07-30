@@ -5,21 +5,27 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class JobController {
-    private List<Job> jobs = new ArrayList<>();
+    // Create the instance of the interface so that we can use the methods created for the service.
+    // jobService is not initialized but marking the jobService implementation with @Service will
+    // make it initialized at runtime and there is now need to initialize.
+    private JobService jobService;
+
+    public JobController(JobService jobService) {
+        this.jobService = jobService;
+    }
 
     @GetMapping("/jobs")
     public List<Job> findAll() {
-        return jobs;
+        return jobService.findAll();
     }
 
     @PostMapping("/jobs")
     public String createJob(@RequestBody Job job) {
-        jobs.add(job);
+        jobService.createJob(job);
         return "Job created successfully";
     }
 }
