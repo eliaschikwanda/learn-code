@@ -32,4 +32,13 @@ public class JobServiceImpl implements JobService {
         }
         return null;
     }
+
+    @Override
+    public Job deleteByID(Long id) {
+        Job job = getJobByID(id);
+        if (job != null) {
+            jobs.remove(job);
+        }
+        return job;
+    }
 }
