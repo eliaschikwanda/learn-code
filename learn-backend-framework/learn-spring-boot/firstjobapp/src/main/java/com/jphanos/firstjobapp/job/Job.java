@@ -1,6 +1,12 @@
 package com.jphanos.firstjobapp.job;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "job_table")
 public class Job {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long jobId;
     private String title;
     private String description;
@@ -15,6 +21,10 @@ public class Job {
         this.minSalary = minSalary;
         this.maxSalary = maxSalary;
         this.location = location;
+    }
+
+    public Job() {
+
     }
 
     public Long getJobId() {
