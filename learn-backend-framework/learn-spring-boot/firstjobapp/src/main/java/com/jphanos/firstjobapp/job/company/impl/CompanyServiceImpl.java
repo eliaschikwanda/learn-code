@@ -18,4 +18,9 @@ public class CompanyServiceImpl implements CompanyService {
     public List<Company> getAllCompanies() {
         return companyRepository.findAll();
     }
+
+    @Override
+    public boolean updateCompany(Long id, Company company) {
+        return false;
+    }
 }
