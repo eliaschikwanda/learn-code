@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+// @RequestMapping can be used to set the base URL of that class if used at class level
 @RestController
+@RequestMapping("/jobs")
 public class JobController {
     // Create the instance of the interface so that we can use the methods created for the service.
     // jobService is not initialized but marking the jobService implementation with @Service will
@@ -17,18 +19,18 @@ public class JobController {
         this.jobService = jobService;
     }
 
-    @GetMapping("/jobs")
+    @GetMapping
     public ResponseEntity<List<Job>> findAll() {
         return new ResponseEntity<>(jobService.findAll(), HttpStatus.OK);
     }
 
-    @PostMapping("/jobs")
+    @PostMapping
     public ResponseEntity<String> createJob(@RequestBody Job job) {
         jobService.createJob(job);
         return new ResponseEntity<>("Job created successfully", HttpStatus.OK);
     }
 
-    @GetMapping("/jobs/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<Job> getJobById(@PathVariable Long id) {
         Job job = jobService.getJobByID(id);
         if (job == null) {
@@ -37,7 +39,7 @@ public class JobController {
         return new ResponseEntity<>(job, HttpStatus.OK);
     }
 
-    @DeleteMapping("/jobs/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteJob(@PathVariable Long id) {
         Job job = jobService.deleteByID(id);
         if (job == null) {
@@ -46,7 +48,8 @@ public class JobController {
         return new ResponseEntity<>("Job deleted successfully", HttpStatus.OK);
     }
 
-    @PutMapping("/jobs/{id}")
+    // @RequestMapping(value = "/jovs/{id}", method = RequestMethod.PUT) --> Request Mappin can also be used.
+    @PutMapping("/{id}")
     public ResponseEntity<String> updateJob (@PathVariable Long id, @RequestBody Job updatedJob) {
         boolean updated = jobService.updateJob(id, updatedJob);
         if (updated) {

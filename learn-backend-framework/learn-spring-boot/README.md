@@ -26,3 +26,9 @@
 - Data Access Layer --> Where all the repository classes reside.
 - Service Layer
 - Data Access layer.
+
+### What is JPA?
+- It involves translation of objects into tables. The Java Persistence API (JPA) is a specification of Java. It is used to persist data between Java object and relational database. JPA acts as a bridge between object-oriented domain models and relational database systems.
+- It is easier and simpler to follow.
+- It also makes writing queries easier, and we can use entities to write queries instead of SQL.
+- Easy integration with Spring Boot.
