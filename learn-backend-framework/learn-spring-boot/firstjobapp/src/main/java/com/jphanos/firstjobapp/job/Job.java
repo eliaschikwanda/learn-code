@@ -3,7 +3,7 @@ package com.jphanos.firstjobapp.job;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "job_table")
+//@Table(name = "job_table")
 public class Job {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
