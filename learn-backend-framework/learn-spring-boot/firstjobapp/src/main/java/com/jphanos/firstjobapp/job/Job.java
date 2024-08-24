@@ -1,5 +1,6 @@
 package com.jphanos.firstjobapp.job;
 
+import com.jphanos.firstjobapp.job.company.Company;
 import jakarta.persistence.*;
 
 @Entity
@@ -14,6 +15,9 @@ public class Job {
     private String maxSalary;
     private String location;
 
+    @ManyToOne
+    private Company company; // So that the ID of the company is kept in the Job table
+
     public Job(Long jobId, String title, String description, String minSalary, String maxSalary, String location) {
         this.jobId = jobId;
         this.title = title;
@@ -21,6 +25,7 @@ public class Job {
         this.minSalary = minSalary;
         this.maxSalary = maxSalary;
         this.location = location;
+        this.company = new Company();
     }
 
     public Job() {
@@ -74,4 +79,5 @@ public class Job {
     public void setLocation(String location) {
         this.location = location;
     }
+
 }

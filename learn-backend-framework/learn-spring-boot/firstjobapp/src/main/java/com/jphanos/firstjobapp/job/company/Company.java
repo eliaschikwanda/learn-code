@@ -1,5 +1,6 @@
 package com.jphanos.firstjobapp.job.company;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jphanos.firstjobapp.job.Job;
 import jakarta.persistence.*;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +16,8 @@ public class Company {
     private String name;
     private String description;
 
-    @OneToMany
+    @JsonIgnore
+    @OneToMany(mappedBy = "company") 
     private List<Job> jobs;
 
     // private List<Review> reviews
