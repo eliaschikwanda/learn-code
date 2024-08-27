@@ -10,14 +10,22 @@ import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 
 @Service
 public class JwtService {
     private static final String SECRET_KEY = "WZU1R4OaGqg4YSM1uvYnyY+pYd2XJ4P7JR7cwuHH1Ei8BxXzWPJINjrFQPakTFlI";
-    // Methods to generate a token out of extra claims and user details
-    private String generateToken(
+
+    // Generate token out of the current user without extra claims --> 3
+    public String generateToken(UserDetails userDetails) {
+        return generateToken(new HashMap<>(), userDetails);
+    }
+
+    // Methods to generate a token out of extra claims and user details --> 2
+    public String generateToken(
             // The Map of string object will contain the claims or extra claims to add in the tokens
             Map<String, Object> extraClaims,
             UserDetails userDetails
@@ -36,7 +44,24 @@ public class JwtService {
                 .compact();
     }
 
-    // Extract username(email) methods
+    // Methods to validate the toke --> 4
+    public boolean isTokenValid(String token, UserDetails userDetails) {
+        final String username = extractUsername(token);
+        // Check if the token belongs to the user
+        return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
+    }
+
+    // Check if the token is expired
+    private boolean isTokenExpired(String token) {
+        return extractExpiration(token).before(new Date());
+    }
+
+    private Date extractExpiration(String token) {
+        // Once you have the extract claims method you can get any field that has been on the token
+        return extractClaim(token, Claims::getExpiration);
+    }
+
+    // Extract username(email) methods --> 1
     public String extractUsername(String token) {
         // The subject should be the username of the user which in this case is the email
         return extractClaim(token, Claims::getSubject);
