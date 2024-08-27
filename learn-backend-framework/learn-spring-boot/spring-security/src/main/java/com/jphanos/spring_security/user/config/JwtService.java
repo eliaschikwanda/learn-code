@@ -2,17 +2,41 @@ package com.jphanos.spring_security.user.config;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
+import java.util.Date;
+import java.util.Map;
 import java.util.function.Function;
 
 @Service
 public class JwtService {
     private static final String SECRET_KEY = "WZU1R4OaGqg4YSM1uvYnyY+pYd2XJ4P7JR7cwuHH1Ei8BxXzWPJINjrFQPakTFlI";
+    // Methods to generate a token out of extra claims and user details
+    private String generateToken(
+            // The Map of string object will contain the claims or extra claims to add in the tokens
+            Map<String, Object> extraClaims,
+            UserDetails userDetails
+    ) {
+        return Jwts
+                .builder()
+                .setClaims(extraClaims)
+                // The subject should the username (in this case the email) and it should be set
+                .setSubject(userDetails.getUsername())
+                // attach the date the token was created
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
+                // Already created before
+                .signWith(getSignInkey())
+                .signWith(getSignInkey(), SignatureAlgorithm.HS256)
+                .compact();
+    }
 
+    // Extract username(email) methods
     public String extractUsername(String token) {
         // The subject should be the username of the user which in this case is the email
         return extractClaim(token, Claims::getSubject);
