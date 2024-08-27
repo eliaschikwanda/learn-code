@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres/jwt-security
+    url: jdbc:postgresql://localhost:5432/jwt-security
     username: elias
     password:
     driver-class-name: org.postgresql.Driver
